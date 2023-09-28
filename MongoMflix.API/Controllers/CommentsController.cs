@@ -17,9 +17,32 @@ namespace MongoMflix.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            // "GetAllAsync()" is defined in "commentsService.cs"
             var comments = await _commentsService.GetAllAsync();
             return Ok(comments);
+        }
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] string id)
+        {
+            var result = await _commentsService.GetCommentsById(id);
+            return Ok(result);
+        }
+
+        // TO REMOVE MULTIPLE END POINT ERROR WHILE CALLING API, WE ARE ADDINT "ACTION NAME" IN THE ROUTE
+        [HttpGet("[action]/{email}")]
+        public async Task<IActionResult> GetByEmail([FromRoute] string email)
+        {
+            var result = await _commentsService.GetCommentsByEmail(email);
+            return Ok(result);
+        }
+
+        [HttpGet("[action]/{date}")]
+        public async Task<IActionResult> GetByDate([FromRoute] DateTime date)
+        {
+            var result = await _commentsService.GetCommentsByDate(date);
+            return Ok(result);
         }
     }
 }

@@ -23,5 +23,11 @@ namespace MongoMflix.API.Services.UsersService
             var result = await _usersCollection.Find(_ => true).Limit(100).ToListAsync();
             return result;
         }
+
+        public async Task<List<Users>> GetByName(string name)
+        {
+            var result = await _usersCollection.Find(x => x.name == name).ToListAsync();
+            return result;
+        }
     }
 }

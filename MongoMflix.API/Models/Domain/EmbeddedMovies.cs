@@ -31,7 +31,6 @@ namespace MongoMflix.API.Models.Domain
 
         [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
         public float[]? plot_embedding { get; set; }
-
     }
 
     [BsonIgnoreExtraElements]

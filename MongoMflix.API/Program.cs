@@ -1,6 +1,7 @@
 using MongoMflix.API.Models.Domain;
 using MongoMflix.API.Services.CommentsService;
 using MongoMflix.API.Services.EmbeddedMoviesService;
+using MongoMflix.API.Services.MoviesService;
 using MongoMflix.API.Services.SessionsService;
 using MongoMflix.API.Services.TheaterService;
 using MongoMflix.API.Services.UsersService;
@@ -24,6 +25,9 @@ builder.Services.AddTransient<ICommentsService, CommentsService>();
 
 // Resolving Embedded Movies Service Dependency
 builder.Services.AddTransient<IEmbeddedService, EmbeddedService>();
+
+// Resoving Movies Service Dependency
+builder.Services.AddTransient<IMoviesService,  MoviesService>();
 
 // Resolving Sessions Dependency
 builder.Services.AddTransient<ISessionsService, SessionsService>();

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoMflix.API.Models.Domain;
 using MongoMflix.API.Services.SessionsService;
+using System.Collections.Generic;
 
 namespace MongoMflix.API.Controllers
 {
@@ -19,6 +21,14 @@ namespace MongoMflix.API.Controllers
         {
            var result =  await _sessionsService.GetAllAsync();
            return Ok(result);
+        }
+
+
+        [HttpGet("{user_id}")]
+        public async Task<IActionResult> GetById([FromRoute] string user_id)
+        {
+            var result = await _sessionsService.GetByUserIdAsync(user_id);
+            return Ok(result);
         }
     }
 }

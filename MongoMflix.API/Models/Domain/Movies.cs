@@ -1,52 +1,77 @@
-﻿namespace MongoMflix.API.Models.Domain
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace MongoMflix.API.Models.Domain
 {
+    [BsonIgnoreExtraElements]
     public class Movies
     {
-        public string MoviesId { get; set; }
-        public string Plot { get; set; }
-        public string[] Genres { get; set; }
-        public int RunTime { get; set; }
-        public string[] Cast { get; set; }
-        public string PosterLink { get; set; }
-        public string Title { get; set; }
-        public string FullPlot { get; set; }
-        public string[] Languages { get; set; }
-        public DateTime RealeaseDate { get; set; }
-        public string[] Directors { get; set; }
-        public string RatedBy { get; set; }
-        public class Awards
-        {
-            public int Win { get; set; }
-            public int Nominations { get; set; }
-            public string Text { get; set; }
-        }
-        public DateTime Lastupdated { get; set; }
-        public int Year { get; set; }
-        public class IMDB
-        {
-            public float Rating { get; set; }
-            public long Votes { get; set; }
-            public long Id { get; set; }
-        }
-        public string[] Countries { get; set; }
-        public string Type { get; set; }
-        public class Tomatoes
-        {
-            public class Viewer
-            {
-                public float Rating { get; set; }
-                public long NumOfReviews { get; set; }
-                public int Meter { get; set; } = 0;
-            }
-            public int Fresh { get; set; }
-            public class Critic
-            {
-                public float Rating { get; set; }
-                public int NumOfReviews { get; set; }
-                public int Meter { get; set; } = 0;
-            }
-            public int Rotten { get; set; }
-        }
-        public int NumberOfComments { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public required string Id { get; set; }
+        public string? plot { get; set; }
+        public string[]? genres { get; set; }
+        public int runtime { get; set; }
+        public string[]? cast { get; set; }
+        public string? poster { get; set; }
+        public string? title { get; set; }
+        public string? fullplot { get; set; }
+        public string[]? languages { get; set; }
+        public DateTime released { get; set; }
+        public string[]? directors { get; set; }
+        public string? rated { get; set; }
+        public Award awards { get; set; } = new Award();
+        public string? lastupdated { get; set; }
+        public int year { get; set; }
+        public Imdbs imdb { get; set; } = new Imdbs();
+        public string[]? countries { get; set; }
+        public string? type { get; set; }
+        public Tomatoe tomatoes { get; set; } = new Tomatoe();
+        public int num_mflix_comments { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class Award
+    {
+        public int wins { get; set; }
+        public int nominations { get; set; }
+        public string? text { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class Imdbs
+    {
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public float rating { get; set; }
+        public int votes { get; set; }
+        public int id { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class Tomatoe
+    {
+        public View viewer { get; set; } = new View();
+        public int fresh { get; set; }
+        public Criti critic { get; set; } = new Criti();
+        public int rotten { get; set; }
+        public DateTime lastUpdated { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class View
+    {
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public float rating { get; set; }
+        public int numReviews { get; set; }
+        public int meter { get; set; }
+    }
+
+    [BsonIgnoreExtraElements]
+    public class Criti
+    {
+        [BsonRepresentation(BsonType.Double, AllowTruncation = true)]
+        public float rating { get; set; }
+        public int numReviews { get; set; }
+        public int meter { get; set; }
     }
 }

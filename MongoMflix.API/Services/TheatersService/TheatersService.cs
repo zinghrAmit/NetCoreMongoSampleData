@@ -23,5 +23,18 @@ namespace MongoMflix.API.Services.TheaterService
             var result =  await _theatersCollection.Find(_ => true).Limit(50).ToListAsync();
             return result;
         }
+
+        public async Task<List<Theaters>> GetByIdASync(int id)
+        {
+            var result = await _theatersCollection.Find(x => x.theaterId == id).ToListAsync();
+            return result;
+        }
+
+        // GET ALL LOCATIONS WHRER THEATERS ARE
+        //public async Task<List<Theaters>> GetAllLocationAsync()
+        //{
+        //    var result = await _theatersCollection.Find(_ => true ).ToListAsync();
+        //    return result;
+        //}
     }
 }

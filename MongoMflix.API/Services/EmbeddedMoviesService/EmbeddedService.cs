@@ -23,5 +23,19 @@ namespace MongoMflix.API.Services.EmbeddedMoviesService
             var result = await _collectionName.Find(_ => true).Limit(50).ToListAsync();
             return result;
         }
+
+        // EMBEDDED MOVIES BY TITLE
+        public async Task<List<EmbeddedMovies>> GetByTitle(string title)
+        {
+            var result = await _collectionName.Find(x => x.title == title).ToListAsync();
+            return result;
+        }
+
+        // BY YEAR
+        public async Task<List<EmbeddedMovies>> GetByYear(int year)
+        {
+            var result = await _collectionName.Find(x => x.year == year).ToListAsync();
+            return result;
+        }
     }
 }
