@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "BxNNfObW/KT8ChgoetxaQbQmVeECzEamuI/oFXtHt+M=",
+  "Source": "MongoMflix.API",
+  "BasePath": "_content/MongoMflix.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
