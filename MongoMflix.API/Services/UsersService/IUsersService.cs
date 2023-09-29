@@ -6,5 +6,8 @@ namespace MongoMflix.API.Services.UsersService
     {
         Task<List<Users>> GetAllAsycn();
         Task<List<Users>> GetByName(string name);
+        Task PostUserAsync(Users user);
+        Task UpdateUserNameAsync(string currentName, string newName);
+        Task DeleteUserAsync(string email);
     }
 }

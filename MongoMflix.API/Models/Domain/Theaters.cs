@@ -3,6 +3,7 @@ using MongoDB.Bson;
 
 namespace MongoMflix.API.Models.Domain
 {
+    [BsonIgnoreExtraElements]
     public class Theaters
     {
         [BsonId]
@@ -12,12 +13,14 @@ namespace MongoMflix.API.Models.Domain
         public Location location { get; set; } = new Location();
     }
 
+    [BsonIgnoreExtraElements]
     public class Location
     {
         public Address address { get; set; } = new Address();
         public Geo geo { get; set; } = new Geo();
     }
 
+    [BsonIgnoreExtraElements]
     public class Address
     {
         public string street1 { get; set; } = String.Empty;
@@ -26,6 +29,7 @@ namespace MongoMflix.API.Models.Domain
         public string zipcode { get; set;} = String.Empty;
     }
 
+    [BsonIgnoreExtraElements]
     public class Geo
     {
         public string? type { get; set; }

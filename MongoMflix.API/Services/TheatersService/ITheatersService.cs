@@ -6,6 +6,7 @@ namespace MongoMflix.API.Services.TheaterService
     {
         Task<List<Theaters>> GetAllAsync();
         Task<List<Theaters>> GetByIdASync(int id);
-        //Task<List<Theaters>> GetAllLocationAsync();
+        Task<List<Theaters>> GetAllCitiesAsync();
+        Task<List<Theaters>> GetByZipcode(string zipcode);
     }
 }

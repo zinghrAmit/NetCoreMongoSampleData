@@ -30,11 +30,16 @@ namespace MongoMflix.API.Services.TheaterService
             return result;
         }
 
-        // GET ALL LOCATIONS WHRER THEATERS ARE
-        //public async Task<List<Theaters>> GetAllLocationAsync()
-        //{
-        //    var result = await _theatersCollection.Find(_ => true ).ToListAsync();
-        //    return result;
-        //}
+        public async Task<List<Theaters>> GetAllCitiesAsync()
+        {
+            var result = await _theatersCollection.Find(_ => true).ToListAsync();
+            return result;
+        }
+
+        public async Task<List<Theaters>> GetByZipcode(string zipcode)
+        {
+            var result = await _theatersCollection.Find(x => x.location.address.zipcode == zipcode ).ToListAsync();
+            return result;
+        }
     }
 }

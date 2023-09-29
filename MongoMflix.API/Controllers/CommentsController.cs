@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoMflix.API.Models.Domain;
 using MongoMflix.API.Services.CommentsService;
 
 namespace MongoMflix.API.Controllers
@@ -34,15 +36,75 @@ namespace MongoMflix.API.Controllers
         [HttpGet("[action]/{email}")]
         public async Task<IActionResult> GetByEmail([FromRoute] string email)
         {
-            var result = await _commentsService.GetCommentsByEmail(email);
-            return Ok(result);
+            try
+            {
+                var result = await _commentsService.GetCommentsByEmail(email);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("[action]/{date}")]
         public async Task<IActionResult> GetByDate([FromRoute] DateTime date)
         {
-            var result = await _commentsService.GetCommentsByDate(date);
-            return Ok(result);
+            try
+            {
+                var result = await _commentsService.GetCommentsByDate(date);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // POST A COMMENT
+        [HttpPost]
+        public async Task<IActionResult> PostComment([FromBody] Comments comment)
+        {
+            try
+            {
+                await _commentsService.PostComment(comment);
+                return Ok("Posted Succesfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // UPDATE A COMMENT
+        [HttpPut("{email}")]
+        public async Task<IActionResult> UpdateComment([FromRoute] string email, [FromBody] string comment)
+        {
+            try
+            {
+                await _commentsService.UpateCommentAsync(email, comment);
+                return Ok("Comment Updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        // DELETE A COMMENT
+        [HttpDelete("{email}")]
+        public async Task<IActionResult> DeleteComment([FromRoute] string email)
+        {
+            try
+            {
+                await _commentsService.DeleteCommentAsync(email);
+                return Ok("Comment Deleted");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message) ;
+            }
         }
     }
 }

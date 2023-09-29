@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 
 namespace MongoMflix.API.Services.CommentsService
 {
@@ -47,6 +48,53 @@ namespace MongoMflix.API.Services.CommentsService
         {
             var result = await _commentsCollection.Find( x => x.date == date).ToListAsync();
             return result;
+        }
+
+        // POST A COMMENT
+        public async Task PostComment(Comments comment)
+        {
+            try
+            {
+                if (comment != null)
+                {
+                    await _commentsCollection.InsertOneAsync(comment);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        // UPDATE A COMMENT
+        public async Task UpateCommentAsync(string email, string comment)
+        {
+            try
+            {
+                if(comment != null)
+                {
+                    var filter = Builders<Comments>.Filter.Eq(x => x.email, email);
+                    var update = Builders<Comments>.Update.Set(x => x.text, comment);
+                    await _commentsCollection.UpdateOneAsync(filter, update);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        // DELTE A COMMENT
+        public async Task DeleteCommentAsync(string email)
+        {
+            try
+            {
+                await _commentsCollection.DeleteOneAsync(x => x.email == email);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
     }

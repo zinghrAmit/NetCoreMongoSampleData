@@ -17,12 +17,15 @@ namespace MongoMflix.API.Controllers
             _theatersService = theatersService;
         }
 
+        // GET ALL THEATERS
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var result = await _theatersService.GetAllAsync();
             return Ok(result);
         }
+
+        // GET THEATER BY THEATER ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -30,11 +33,26 @@ namespace MongoMflix.API.Controllers
             return Ok(result);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllLocations()
-        //{
-        //    var result = await _theatersService.GetAllLocationAsync();
-        //    return Ok(result);
-        //} 
+        // GET ALL CITIES NAME WHRE THEATERS ARE PRESENT
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllCities()
+        {
+            var result = await _theatersService.GetAllCitiesAsync();
+            List<string> cities = new List<string>();
+            foreach (Theaters ele in result)
+            {
+                cities.Add(ele.location.address.city);
+            }
+            return Ok(cities);
+        }
+
+        // GET THEATER BY ZIPCODE
+        [HttpGet("[action]/{zipcode}")]
+        public async Task<IActionResult> GetTheaterByPin([FromRoute] string zipcode)
+        {
+            var result = await _theatersService.GetByZipcode(zipcode);
+            return Ok(result);
+        }
+
     }
 }
