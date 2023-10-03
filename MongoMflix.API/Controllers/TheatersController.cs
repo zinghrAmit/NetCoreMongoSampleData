@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoMflix.API.Models.Domain;
 using MongoMflix.API.Services.TheaterService;
 using System.Collections.Generic;
+using MongoMflix.API.DTO.Theaters;
 
 namespace MongoMflix.API.Controllers
 {

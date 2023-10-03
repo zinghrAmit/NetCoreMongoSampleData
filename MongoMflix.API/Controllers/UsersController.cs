@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoMflix.API.DTO.Users;
 using MongoMflix.API.Models.Domain;
 using MongoMflix.API.Services.UsersService;
 using System.Collections.Generic;
@@ -23,7 +24,18 @@ namespace MongoMflix.API.Controllers
             try
             {
                 var result = await _usersService.GetAllAsycn();
-                return Ok(result);
+                var resultDto = new List<UsersDto>();
+                foreach (var ele in result)
+                {
+                    resultDto.Add(new UsersDto()
+                    {
+                        Id = ele.Id,
+                        name = ele.name,
+                        email = ele.email,
+                        password = ele.password
+                    });
+                }
+                return Ok(resultDto);
             }
             catch (Exception ex)
             {
@@ -37,6 +49,17 @@ namespace MongoMflix.API.Controllers
             try
             {
                 var result = await _usersService.GetByName(name);
+                var resultDto = new List<UsersDto>();
+                foreach (var ele in result)
+                {
+                    resultDto.Add(new UsersDto()
+                    {
+                        Id = ele.Id,
+                        name = ele.name,
+                        email = ele.email,
+                        password = ele.password
+                    });
+                }
                 return Ok(result);
             }
             catch (Exception ex)

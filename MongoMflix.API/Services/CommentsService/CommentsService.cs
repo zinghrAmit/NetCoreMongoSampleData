@@ -25,7 +25,7 @@ namespace MongoMflix.API.Services.CommentsService
         // GET FIRST 50 COMMENTS
         public async Task<List<Comments>> GetAllAsync()
         {
-            var result = await _commentsCollection.Find(_ => true).Limit(50).ToListAsync();
+            var result = await _commentsCollection.Find(_ => true).Limit(10).ToListAsync();
             return result;
         }
 
